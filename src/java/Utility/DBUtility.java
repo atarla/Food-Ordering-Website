@@ -45,7 +45,8 @@ public class DBUtility {
 
 		try {
 
-			 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/food?autoReconnect=true&useSSL=false","root","password-1");
+//			 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/food?autoReconnect=true&useSSL=false","root","password-1");
+                                                      conn= DriverManager.getConnection("jdbc:mysql://nbadproject.co6umk4usv3m.us-west-2.rds.amazonaws.com:3306/food?autoReconnect=true&useSSL=false","root","password-1");
 
 		} catch (SQLException e) {
 

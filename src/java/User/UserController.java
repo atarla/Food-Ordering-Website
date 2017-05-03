@@ -30,6 +30,7 @@ public class UserController extends HttpServlet {
         HttpSession session = request.getSession();
         String url = "/home.jsp";
         String message = "";
+        
         //Get request parameters
         String action = request.getParameter("action");
         System.out.println("action : " + action);
@@ -49,12 +50,12 @@ public class UserController extends HttpServlet {
            // lb.LoginBl(new_user);
            LoginDao ld = new LoginDao();
            new_user = ld.LoginDao(new_user);
-            System.out.println("admin.LoginServlet.doPost()" + "username " + username);
-            System.out.println("admin.LoginServlet.doPost()" + "password " + password);
+            System.out.println("UserController.doPost()" + "username " + username);
+            System.out.println("UserController.doPost()" + "password " + password);
             
 //            if (result != true) {
             if (username==null) {   //change to check if user exists, add method in login dao or bl ?
-                System.out.println("admin.LoginServlet.doPost()" + "User Does not exist");
+                System.out.println("UserController.doPost()" + "User Does not exist");
 
                 message = "User Does not exist";
                 request.setAttribute("message", message);
@@ -63,9 +64,12 @@ public class UserController extends HttpServlet {
                 request.getServletContext().getRequestDispatcher(url).forward(request, response);
             } else {
                 //user is registered
-                if ("admin".equals(new_user.getUserType())) {
+                if ("Admin".equals(new_user.getUserType())) {
                     url = "/admin.jsp";
-                } else {
+                } 
+                if ("Buyer".equals(new_user.getUserType())) {
+                    url = "/buyer.jsp";}
+                    else {
                          
                        
                     url = "/home.jsp";
@@ -99,6 +103,9 @@ public class UserController extends HttpServlet {
                     response.addCookie(userTypeCookie);
                     System.out.println("userType cookie value set to : " + new_user.getUserType());
                     request.setAttribute("user", new_user);
+                    session.setAttribute("user", new_user);
+                    session.setAttribute("username", new_user.getUsername());
+                    session.setAttribute("usertype", new_user.getUserType());
                     request.getServletContext().getRequestDispatcher(url).forward(request, response);
                 } else {
                     System.out.println("passwords don't match");
@@ -118,12 +125,12 @@ public class UserController extends HttpServlet {
             String email = request.getParameter("email");
             
             String usertype = request.getParameter("usertype");
-            System.out.println("admin.LoginServlet.doPost()" + username);
+            System.out.println("UserController.doPost()" + username);
 
-            System.out.println("admin.LoginServlet.doPost()" + password);
-            System.out.println("admin.LoginServlet.doPost()" + rePassword);
-           System.out.println("admin.LoginServlet.doPost()" + email);
-            System.out.println("admin.LoginServlet.doPost()" + usertype);
+            System.out.println("UserController.doPost()" + password);
+            System.out.println("UserController.doPost()" + rePassword);
+           System.out.println("UserController.doPost()" + email);
+            System.out.println("UserController.doPost()" + usertype);
 
            if (password.equals(rePassword)) {
                 //Hash salt password
@@ -151,7 +158,7 @@ public class UserController extends HttpServlet {
                     System.out.println(salt);
                     System.out.println(hashSaltPassword);
 
-                    user newUser = new user(username, password, email, "user");
+                    user newUser = new user(username, password, email, usertype);
                     newUser.setSalt(salt);
                     newUser.setHash(hashPassword);
                     newUser.setSaltedHash(hashSaltPassword);
@@ -170,7 +177,7 @@ public class UserController extends HttpServlet {
                         
                     session.setAttribute("user", newUser.getEmail());
                     RequestDispatcher rd = request.getRequestDispatcher("home.jsp?user"+newUser.getEmail());
-                    rd.forward(request, response);
+                   rd.forward(request, response);
                     Cookie userCookie = new Cookie("userCookie", username);    
                     userCookie.setMaxAge(1 * 60 * 60);
                         userCookie.setPath("/");
@@ -191,7 +198,7 @@ public class UserController extends HttpServlet {
         else if (action.equals("logout")) {
             request.getSession().invalidate();
             response.sendRedirect("home.jsp");
-        } else if (action.equals("backHome")) {
+        } else if (action.equals("home")) {
             url = "/home.jsp";
             String username = request.getParameter("username");
             Cookie[] cookies = request.getCookies();

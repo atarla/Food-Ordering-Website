@@ -4,11 +4,13 @@
     Author     : anusha
 */
 body {
-    background:#4d90fe url("restaurant.jpg") no-repeat right top;
+    /*background:#4d90fe url("restaurant.jpg") no-repeat right top;*/
+    opacity: 0.9;
+    filter: alpha(opacity=90);
     
 }
 
-@import url (http://fonts.googleapis.com/css?family=Roboto);
+/*@import url(http://fonts.googleapis.com/css?family=Roboto);*/
 
 /****** LOGIN MODAL ******/
 .loginmodal-container {
@@ -38,6 +40,21 @@ body {
 
 .loginmodal-container input[type=text], input[type=password], input[type=email] {
   height: 44px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 10px;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+   border-radius: 2px; 
+  padding: 0 8px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+textarea {
+  height: 150px;
   font-size: 16px;
   width: 100%;
   margin-bottom: 10px;
@@ -145,3 +162,5 @@ div.tab button.active {
     border-top: none;
     font-size: 2em
 }
+
+

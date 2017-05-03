@@ -18,18 +18,22 @@ public class fooditem implements Serializable{
     private String posted_by;
     private String address;
     private Integer item_price;
+    private String cuisine;
+    private String status;
 
 
     public fooditem() {
     }
 
-    public fooditem(String item_id, String item_name, String description, String posted_by, String address, Integer item_price) {
+    public fooditem(String item_id, String item_name, String description, String posted_by, String address, Integer item_price, String status, String cuisine) {
         this.item_id = item_id;
         this.item_name = item_name;
         this.description = description;
         this.posted_by = posted_by;
         this.address = address;
         this.item_price = item_price;
+        this.status = status;
+        this.cuisine=cuisine;
     }
 
     public String getItem_id() {
@@ -55,7 +59,21 @@ public class fooditem implements Serializable{
     public void setDescription(String description) {
         this.description = description;
     }
-
+    
+    public String getStatus(){
+        return status;
+    }
+    public void setStatus(String status){
+        this.status = status;
+    }
+    
+      public String getCuisine(){
+        return cuisine;
+    }
+    public void setCuisine(String cuisine){
+        this.cuisine = cuisine;
+    }
+    
     public String getPosted_by() {
         return posted_by;
     }
