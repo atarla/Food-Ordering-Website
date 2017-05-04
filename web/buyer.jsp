@@ -18,11 +18,17 @@
        </tr>
   </thead>
   <tbody>
-  <c:forEach items="${list}" var="current">
+  <c:forEach items="${list}" var="current" varStatus="i">
   <TR>
       <TD><h4>${current.item_name}</h4></TD>
     <td>${current.description}</td><td>${current.posted_by}</td><td>${current.address}</td><td>${current.item_price}</td><td>${current.cuisine}</td>
-    <td class="btn btn-success"><a href="OrderServlet?action=addtocart">Add To Cart</a></td>
+    
+    <td class="btn btn-success">
+        <a href="<c:url value="OrderServlet?action=addtocart"><c:param name="curr_item" value="${current.item_name}"/><c:param name="curr_price" value="${current.item_price}"/>
+           <c:param name="curr_address" value="${current.address}"/>
+                                   </c:url>">Add To Cart</a></td>
+                                                  
+
   </TR>
     </c:forEach>
 </tbody>

@@ -28,7 +28,7 @@
         
     <link href="css/bootstrap-grid.css" rel="stylesheet" />
     <link href="css/bootstrap-reboot.css" rel="stylesheet" />
-    
+    <script src="js/myjs.js" type="text/javascript"></script>
     <!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
       
       
@@ -108,7 +108,7 @@
     <div class="modal-dialog" style="margin-top: 20%">
 				<div class="loginmodal-container">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h1>SignUp for an Account</h1><br>
+					<h1>Sign Up for an Account</h1><br>
                                         <form action="UserController?action=register" method="post">
                                             <input type="text" name="username" placeholder="Username" required>
                                                                                         <input type="text" name="email" placeholder="Email" required>
@@ -123,6 +123,7 @@
 			</div>
 		  </div>
     <!--End of Sign Up Form-->
+    
     <!--Start of cart modal-->
     <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cart" aria-hidden="true">
     <div class="modal-dialog">
@@ -138,8 +139,8 @@
                     <thead>
                         <tr>
                             <td class="active">Product Image</td>
-                            <td class="active">Id</td>
-                            <td class="active">Size</td>
+                            <td class="active">Product Name</td>
+                            <td class="active">Posted By</td>
                             <td class="active">Price</td>
                             <td class="active"></td>
                         </tr>
@@ -149,38 +150,14 @@
                             <td class="active">
                                 <img src="css/img2.jpg " width="60">
                             </td>
-                            <td class="active">2577</td>
-                            <td class="active"><strong> 8.00in x 10.00in </strong>
+                            <td class="active">${cart_item}</td>
+                            <td class="active"><strong> aseller </strong>
                             </td>
-                            <td class="active">$ <span class="price_row"> 15.00 </span>
+                            <td class="active">$ <span class="price_row"> ${curr_price} </span>
                             </td>
                             <td class="active" onclick="remove_from_cart(this)" data-id="2577" style="cursor:pointer;">×</td>
                         </tr>
-                        <tr>
-                            <td class="active">
-                                <img src="css/wood.png " width="60">
-                            </td>
-                            <td class="active">2585</td>
-                            <td class="active"><strong> 27.00in x 21.00in </strong>
-                            </td>
-                            <td class="active"> <span class="price_currency">Rs. </span>
- <span class="price_row"> 4500.00 </span>
-                            </td>
-                            <td class="active" onclick="remove_from_cart(this)" data-id="2585" style="cursor:pointer;">×</td>
-                        </tr>
-                        <tr>
-                            <td class="active">
-                                <img src="css/wood.png " width="60">
-                            </td>
-                            <td class="active">2586</td>
-                            <td class="active"><strong> 21.00in x 21.00in </strong>
-                            </td>
-                            <td class="active"> <span class="price_currency">Rs. </span>
- <span class="price_row"> 5000.00 </span>
-                            </td>
-                            <td class="active" onclick="remove_from_cart(this)" data-id="2586" style="cursor:pointer;">×</td>
-                        </tr>
-                    </tbody>
+                        </tbody>
                 </table>
             </div>
             <div class="modal-footer">
@@ -192,4 +169,4 @@
     <!--End of cart modal-->
 
 </div>
-
+                                

@@ -6,7 +6,7 @@
 <%@ include file="header.jsp" %>
 
 <div class="tab">
-  <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen" >User Guide</button>
+  <button class="tablinks active" onclick="openCity(event, 'London')" id="defaultOpen" >User Guide</button>
   <c:if test="${sessionScope.usertype == 'Buyer'}" ><button class="tablinks" onclick="openCity(event, 'Paris')" ><a href="OrderServlet?action=view">Order Food</a></button></c:if>
   <%--<c:if test="${sessionScope.usertype == 'Buyer'}" ><a href="OrderServlet?action=view">Order Food</a></c:if>--%>
   
@@ -14,7 +14,7 @@
 </div>
 
       <c:if test="${sessionScope.usertype == null}" >
-      <div id="London" class="tabcontent">
+      <div id="London" class="well">
   <h2>Hello ,</h2>
   <h3 style="font-family: arial">Bored of eating the same old restaurant food? Welcome to GoodFood! <br>Order something new and healthy cooked by the amazing chefs in your neighborhood. </h3>
   <img src="css/wood.png" style="opacity: 0.6" width="800">
@@ -61,14 +61,21 @@
 <div id="Tokyo" class="tabcontent">
   
   <form method="post" action="FoodController?action=addfood" class="loginmodal-container offset-1">
-      <h3>Add an Entry for food item.</h3>
+      <h3 style="background: #d9534f;
+    text-transform: uppercase;
+    font-family: 'Arial', sans-serif;
+    color: whitesmoke;
+    font-size: 18px;
+    font-weight: 100;
+    padding: 20px;
+    margin: -30px -30px 30px -30px;">Add an Entry for food item.</h3>
       <input type="hidden" name="action" value="additem">
       <input type="text"  name="itemname" placeholder="Enter Food Item Name" required><br>
       <textarea name="itemDesc"  placeholder="Food Item Description"></textarea><br>
       <textarea  name="address" rows="3" placeholder="Your Address" cols="27"></textarea><br>
       <input type="text"  name="price" placeholder="Price" required><br>
       <input type="text"  name="cuisine" placeholder="Cuisine" required><br>
-      <input type="submit" name="submititem" class="lbtn btn-danger" value="Submit">
+      <input type="submit" name="submititem" class="btn btn-danger" value="Submit">
   
 </form>
 </div>

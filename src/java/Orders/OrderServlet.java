@@ -4,9 +4,11 @@ import FoodItem.AdminDao;
 import FoodItem.fooditem;
 import User.LoginDao;
 import User.user;
+import Utility.EmailUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -64,6 +66,47 @@ public class OrderServlet extends HttpServlet {
              case "buy":{
                  url="/orderconfirm.jsp";
                  request.setAttribute("user", new_user);
+                 
+                     String to = "";
+                    to = new_user.getEmail();
+                    String from = "admin@goodfood.com";
+                    String subject = "Order Confirmed";
+                    String link = "buy.jsp";
+                    String cp = (String) session.getAttribute("curr_price");
+                     String cart_item = "Pizza";
+                     String ca ="some address 89urqia some street Charlotte, NC";
+                    String emailUrl = "<a href=\"" + link + "\" >" + link + "</a>";
+                    String body = "Dear " + new_user.getUsername() + ",\n\n"
+                            + cart_item+"\n"+"\n Price is: "+cp+"\nPlease collect it at Address: "+ca+ "\n\n"
+                            + "Thanks,\n"
+                            + "Admin";
+                    System.out.print(body);
+                    boolean isBodyHTML = false;
+
+                    try {
+                        System.out.println("inside email send");
+                        EmailUtil.sendMail(to, from, subject, body, isBodyHTML);String message="";
+                        //message =cart_item.toUpperCase();
+                        request.setAttribute("message", message);
+                        
+
+                    } catch (MessagingException e) {
+                        String errorMessage
+                                = "ERROR: Unable to send email. "
+                                + "Check Tomcat logs for details."
+                                + "ERROR MESSAGE: " + e.getMessage();
+                        request.setAttribute("message", errorMessage);
+                        this.log(
+                                "Unable to send email. \n"
+                                + "Here is the email you tried to send: \n"
+                                + "=====================================\n"
+                                //+ "TO: " + to + "\n"
+                                + "FROM: " + from + "\n"
+                                + "SUBJECT: " + subject + "\n"
+                                + "\n"
+                                + body + "\n\n");}
+                     //end emailing
+            
                  request.getServletContext().getRequestDispatcher(url).forward(request, response);
                  break;}
              case "view":{
@@ -86,7 +129,13 @@ public class OrderServlet extends HttpServlet {
                  int item_count=0;
                  item_count = item_count+1;
                  session.setAttribute("icount", item_count);
-                 System.out.println(request.getParameter("item_name"));
+                 String cart_item = request.getParameter("curr_item");
+                 session.setAttribute("cart_item", cart_item);
+                 String cp = request.getParameter("curr_price");
+                 session.setAttribute("curr_price", cp);
+                 String ca = request.getParameter("curr_address");
+                 session.setAttribute("curr address", ca);
+                 System.out.println(request.getParameter("curr_item"));
                  request.setAttribute("user", new_user);
                  request.getServletContext().getRequestDispatcher(url).forward(request, response);
                  break;}
